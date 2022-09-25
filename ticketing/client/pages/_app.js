@@ -1,5 +1,29 @@
 import 'bootstrap/dist/css/bootstrap.css'
-
-export default function TicketingApp({ Component, pageProps }) {
-    return <Component {...pageProps} />
+import buildClient from '../api/build-client';
+import Header from '../components/header';
+ 
+function TicketingApp({ Component, pageProps, currentUser }) {
+    return (
+        <div className="container-fluid">
+            <Header currentUser={currentUser} />
+            <Component {...pageProps} />
+        </div>
+    )
 };
+
+TicketingApp.getInitialProps = async (appContext) => {
+    const client = buildClient(appContext.ctx);
+    const { data } = await client.get('/api/users/currentuser');
+
+    let pageProps = {};
+    if (appContext.Component.getInitialProps) {
+        pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+    }
+
+    return {
+        pageProps,
+        ...data
+    };
+};
+
+export default TicketingApp;

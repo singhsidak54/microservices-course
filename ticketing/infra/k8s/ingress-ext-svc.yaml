@@ -1,0 +1,7 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: ingress-srv-local
+spec:
+  type: ExternalName
+  externalName: ingress-nginx-controller.ingress-nginx.svc.cluster.local
