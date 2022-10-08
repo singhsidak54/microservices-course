@@ -1,8 +1,8 @@
-import { NotAuthorizedError, NotFoundError, requireAuth, validateRequest } from '@sdstickets/common';
+import { BadRequestError, NotAuthorizedError, NotFoundError, requireAuth, validateRequest } from '@sdstickets/common';
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
 import { Ticket } from '../models/tickets';
-import { TicketUpdatedPublisher } from '../events/publisher/ticket-updated-publisher';
+import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
 import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
@@ -22,6 +22,10 @@ router.put(
         
         if(ticket.userId != req.currentUser!.id) {
             throw new NotAuthorizedError();
+        }
+
+        if(ticket.orderId) {
+            throw new BadRequestError('Cannot edit a reserved ticket.');
         }
 
         ticket.set({
