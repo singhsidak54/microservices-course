@@ -6,7 +6,6 @@ interface TicketAttrs {
   id: string;
   title: string;
   price: number;
-  version: number;
 }
 
 export interface TicketDoc extends mongoose.Document {
@@ -50,8 +49,7 @@ ticketSchema.statics.build = (attrs: TicketAttrs) => {
   return new Ticket({
     _id: attrs.id,
     title: attrs.title,
-    price: attrs.price,
-    version: attrs.version
+    price: attrs.price
   });
 };
 
