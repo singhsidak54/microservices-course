@@ -40,3 +40,11 @@ build:
         manual:
           - dest: .
             src: 'src/**/*.ts'
+    - image: singhsidak54/ticketing-expiration
+      context: expiration
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - dest: .
+            src: 'src/**/*.ts'
