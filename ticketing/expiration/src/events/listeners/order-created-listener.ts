@@ -7,8 +7,8 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
     subject: Subjects.OrderCreated = Subjects.OrderCreated;
     queueGroupName = queueGroupName;
     async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
-        const delay = new Date(data.expiresAt).getTime() - new Date().getTime();
-        if(delay < 0) return;
+        let delay = new Date(data.expiresAt).getTime() - new Date().getTime();
+        delay = Math.max(0, delay);
         await expirationQueue.add({
             orderId: data.id
         }, {

@@ -6,7 +6,9 @@ function TicketingApp({ Component, pageProps, currentUser }) {
     return (
         <div className="container-fluid">
             <Header currentUser={currentUser} />
-            <Component {...pageProps} />
+            <div className="container">
+                <Component currentUser={currentUser} {...pageProps} />
+            </div>
         </div>
     )
 };
@@ -17,7 +19,7 @@ TicketingApp.getInitialProps = async (appContext) => {
 
     let pageProps = {};
     if (appContext.Component.getInitialProps) {
-        pageProps = await appContext.Component.getInitialProps(appContext.ctx);
+        pageProps = await appContext.Component.getInitialProps(appContext.ctx, client, data.currentUser);
     }
 
     return {

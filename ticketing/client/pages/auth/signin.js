@@ -2,7 +2,7 @@ import { useState } from "react";
 import Router from 'next/router';
 import useRequest from "../../hooks/use-request";
 
-export default function signin() {
+export default function signIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { doRequest, errors } = useRequest({
@@ -18,7 +18,7 @@ export default function signin() {
     });
 
     return (
-        <div className="container">
+        <div>
             <form onSubmit={onSubmit}>
                 <h1>Sing In</h1>
                 <div className="mb-3">

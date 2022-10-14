@@ -2,7 +2,7 @@ import { useState } from "react";
 import Router from 'next/router';
 import useRequest from "../../hooks/use-request";
 
-export default function signup() {
+export default function signUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { doRequest, errors } = useRequest({
@@ -18,9 +18,9 @@ export default function signup() {
     });
 
     return (
-        <div className="container">
+        <div>
             <form onSubmit={onSubmit}>
-                <h1>Sing Up</h1>
+                <h1>Sign Up</h1>
                 <div className="mb-3">
                     <label htmlFor="inputEmail" className="form-label">Email address</label>
                     <input type="email" className="form-control" id="inputEmail" value={email} onChange={e => setEmail(e.target.value)} />
