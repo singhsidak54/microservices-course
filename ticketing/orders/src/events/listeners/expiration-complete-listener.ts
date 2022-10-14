@@ -20,6 +20,11 @@ export class ExpirationCompleteListener extends Listener<ExpirationCompleteEvent
             throw new BadRequestError('No ticket reserved.');
         }
 
+        if(order.status === OrderStatus.Complete) {
+            msg.ack();
+            return;
+        }
+
         order.set({
             status: OrderStatus.Cancelled
         });
